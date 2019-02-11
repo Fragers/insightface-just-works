@@ -1,4 +1,4 @@
-import insightface.face_model as face_model
+import insightface.insightface.face_model as face_model
 import argparse
 
 
