@@ -1,4 +1,7 @@
 from __future__ import absolute_import
+from pdb import set_trace as st
+
+from matplotlib import pyplot as plt
 
 import os
 import numpy as np
@@ -59,6 +62,7 @@ class FaceModel:
     nimg = face_preprocess.preprocess(face_img, bbox, points, image_size=self.args.image_size)
     nimg = cv2.cvtColor(nimg, cv2.COLOR_BGR2RGB)
     aligned = np.transpose(nimg, (2,0,1))
+    # st()
     return aligned
 
   def get_feature(self, aligned):

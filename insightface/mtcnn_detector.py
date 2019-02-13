@@ -1,4 +1,6 @@
 # coding: utf-8
+from pdb import set_trace as st
+
 import os
 import mxnet as mx
 import numpy as np
@@ -255,6 +257,7 @@ class MtcnnDetector(object):
         points = points[pick]
         
         if not self.accurate_landmark:
+            st()
             return total_boxes, points
 
         #############################################
@@ -295,6 +298,7 @@ class MtcnnDetector(object):
         points = np.hstack([pointx, pointy])
         points = points.astype(np.int32)
 
+        st()
         return total_boxes, points
 
     def detect_face(self, img, det_type=0):
