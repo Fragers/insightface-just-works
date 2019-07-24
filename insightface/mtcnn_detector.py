@@ -9,7 +9,7 @@ import cv2
 from itertools import repeat
 
 
-from insightface.insightface.helper import nms, adjust_input, detect_first_stage_warpper
+from insightface.helper import nms, adjust_input, detect_first_stage_warpper
 
 class MtcnnDetector(object):
     """

@@ -8,8 +8,8 @@ import numpy as np
 import mxnet as mx
 import cv2
 import sklearn
-from insightface.insightface.mtcnn_detector import MtcnnDetector
-import insightface.insightface.face_preprocess as face_preprocess
+from insightface.mtcnn_detector import MtcnnDetector
+import insightface.face_preprocess as face_preprocess
 
 
 class FaceModel:

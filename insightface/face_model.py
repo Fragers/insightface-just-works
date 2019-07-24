@@ -8,8 +8,8 @@ import numpy as np
 import mxnet as mx
 import cv2
 from sklearn.preprocessing import normalize
-from insightface.insightface.mtcnn_detector import MtcnnDetector
-import insightface.insightface.face_preprocess as face_preprocess
+from insightface.mtcnn_detector import MtcnnDetector
+import insightface.face_preprocess as face_preprocess
 
 
 def get_model(ctx, image_size, model_str, layer):
