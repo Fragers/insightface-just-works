@@ -16,13 +16,15 @@ class InsightfaceEmbedder:
         args.image_size = ",".join([str(i) for i in image_size])
         self.model = face_model.FaceModel(args)
 
-    def embed_image(self, image):
-        preprocessed = self.model.get_input(image)
+    def embed_image(self, image, return_all=False):
+        preprocessed = self.model.get_input(image, return_all)
         if preprocessed is None:
             if self.no_face_raise:
                 raise Exception("No face detected!")
             else:
                 return None
 
-        embedding = self.model.get_feature(preprocessed)
-        return embedding
+        embeddings = self.model.get_feature(preprocessed)
+        if return_all:
+            return embeddings
+        return embeddings[0]

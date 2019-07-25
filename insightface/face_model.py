@@ -49,27 +49,33 @@ class FaceModel:
     detector = MtcnnDetector(model_folder=mtcnn_path, ctx=ctx, num_worker=1, accurate_landmark = True, threshold=self.det_threshold)
     self.detector = detector
 
-  def get_input(self, face_img):
-    ret = self.detector.detect_face(face_img, det_type = self.args.det)
+  def get_input(self, face_img, return_all=False):
+    ret = self.detector.detect_face(face_img, det_type=self.args.det)
     if ret is None:
       return None
     bbox, points = ret
     if bbox.shape[0] == 0:
       return None
-    bbox = bbox[0,0:4]
-    points = points[0,:].reshape((2,5)).T
 
-    nimg = face_preprocess.preprocess(face_img, bbox, points, image_size=self.args.image_size)
-    nimg = cv2.cvtColor(nimg, cv2.COLOR_BGR2RGB)
-    aligned = np.transpose(nimg, (2,0,1))
-    # st()
+    aligned = []
+
+    for box, pts in zip(bbox[:, 0:4][bbox[:, 4] > 0.97], points):
+      pts = pts.reshape((2, 5)).T
+      nimg = face_preprocess.preprocess(face_img, box, pts, image_size=self.args.image_size)
+      nimg = cv2.cvtColor(nimg, cv2.COLOR_BGR2RGB)
+      aligned.append(np.transpose(nimg, (2,0,1)))
+      if not return_all:
+        break
     return aligned
 
   def get_feature(self, aligned):
-    input_blob = np.expand_dims(aligned, axis=0)
-    data = mx.nd.array(input_blob)
-    db = mx.io.DataBatch(data=(data,))
-    self.model.forward(db, is_train=False)
-    embedding = self.model.get_outputs()[0].asnumpy()
-    embedding = normalize(embedding).flatten()
-    return embedding
+    embs = []
+    for img in aligned:
+      input_blob = np.expand_dims(img, axis=0)
+      data = mx.nd.array(input_blob)
+      db = mx.io.DataBatch(data=(data,))
+      self.model.forward(db, is_train=False)
+      embedding = self.model.get_outputs()[0].asnumpy()
+      embedding = normalize(embedding).flatten()
+      embs.append(embedding)
+    return embs
