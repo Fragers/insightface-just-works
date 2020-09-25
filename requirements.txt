@@ -1,7 +1,7 @@
-matplotlib==3.0.2
-mxnet==1.3.1
-numpy==1.16.1
-opencv-python==4.0.0.21
-scikit-image==0.14.2
-scikit-learn==0.20.2
-scipy==1.2.1
+matplotlib
+mxnet
+numpy
+opencv-python
+scikit-image
+scikit-learn
+scipy
