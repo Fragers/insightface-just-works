@@ -75,6 +75,7 @@ for people_index in range(len(bboxes_all) - 1):
         cv2.putText(img_all, "unknown", st_points, font,
                     fontScale, color, thickness, cv2.LINE_AA)
 cv2.imshow('123', img_all)
+cv2.imwrite('examples/example.jpg', img_all)
 print(found)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
