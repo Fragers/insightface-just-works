@@ -1,3 +1,4 @@
+![Screenshot](examples/example.jpg)
 # Insightface face detection and recognition model that just works out of the box.
 
 This is a minimalistic inference-focused repack of [Insightface](https://github.com/deepinsight/insightface).
